@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: #343E4A;
+  }
+
+body {
+  height: 100%;
+
+  /* Set background gradient colour */
+  background-image: linear-gradient(#F5F4F2, #F0EEEB);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Grid setup */
+.grid-container {
+  margin: auto;
+  display: grid;
+  max-width: 1200px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.1fr 2fr;
+  gap: 0px 1em;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "library-header library-header library-header"
+    "library library add";
+  }
+  
+  .header {
+    width: 100vw;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgb(69,51,22,0.05);
+  }
+
+  .heading-content {
+    max-width: 1200px;
+    padding: 1em 0;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    align-items: center;
+  }
+
+  .heading-text {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: baseline;
+  }
+
+  button {
+    padding: 0.75em 2em;
+    border-radius: 5em;
+    color: white;
+    background-color: #343E4A;
+    border-style: none;
+    align-items: end;
+  }
+  
+  .library {
+    grid-area: library;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+  }
+
+  .library-header {
+    padding: 1em .25em .25em .25em;
+  }
+
+  h2 {
+    font-size: larger;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: medium;
+    font-weight: 600;
+  }
+
+  .library-empty {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0,0,0,0.05);
+    border-radius: 8px;
+  }
+
+  .empty-img {
+    padding: 1em;
+  }
+  
+  .add {
+    grid-area: add;
+    margin: auto;
+  }
+  
+  form {
+    border: none;
+    border-radius: 8px;
+    padding: 1em;
+    max-width: 25em;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgb(69,51,22,0.05);
+  }
+    
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    label {
+      font-size: small;
+      font-weight: 500;
+    }
+    
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      padding: .5em;      
+    }
+
+    .form-field > input,
+    .form-field > select,
+    .form-field > textarea {
+      padding: .5em;
+      flex-grow: 1;
+      border-color: #ECECEC;
+      border-width: 2px;
+      border-radius: 8px;
+      border-style: solid;
+      outline-color: #3E8C97;
+      max-width: auto;
+    }
+
+    select:invalid,
+    input:invalid {
+      color: #DEDEDE;
+    }
+
+    #startDate, #finishDate {
+      height: 36px;
+      width: 100%;
+      font-size: smaller;
+    }
+
+    #startDateField, #finishDateField {
+      max-width: 50%;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    #personalNotes {
+      padding: .5em;
+    }
+
+    .form-header {
+      display: flex;
+      padding: .5em;
+      font-weight: 600;
+
+    }
+
+    .form-header > input,
+    .form-header > select {
+      padding: .5em;
+      flex-grow: 1;
+      outline-color: #3E8C97;
+      ;
+    }
+
+    ::placeholder {
+      color: #DEDEDE;
+    }
+
+    #bookTitle {
+      padding: .25em;
+      max-width: 7em;
+      word-break: break-word;
+      border-style: none;
+      outline: none;
+      font-weight: 600;
+      font-size:xx-large;
+    }
+
+    #bookTitleLabel {
+      padding-left: .5em;
+      font-weight: 600;
+      font-size: large;
+    }
+
+    .genre-preview {
+      max-width: 8em;
+      max-height: 12em;
+      border-radius: 8px;
+    }
+
+    .ratings-wrapper {
+      display: inline-block;
+      padding-left: .5em;
+    }
+
+    .ratings {
+      font-size: x-large;
+    }
+
+
+    .form-submit-button > input {
+      margin: 0.5em;
+      padding: 0.75em 2em;
+      border-radius: 5em;
+      color: white;
+      background-color: #343E4A;
+      border-style: none;
+      align-items: end;
+    }
+
+    #submitButton {
+      align-items: end;
+      justify-content: end;
+      padding: 0;
+    }
