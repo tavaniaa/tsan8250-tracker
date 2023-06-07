@@ -17,6 +17,9 @@ form.addEventListener('submit', function(event) {
     form.elements.bookNotes.value,
     false
   )
+
+  bookImageElem.setAttribute('src', 'assets/default_book.png');
+
   console.log(nibbleList);
 })
 
