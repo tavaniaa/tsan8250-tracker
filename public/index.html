@@ -44,9 +44,9 @@
     </div>
 
     <div class="add">
-        <form id="nibbleform">
+        <form id="nibbleForm">
           <div class="form-header">
-            <img class="genre-preview" src="assets/default_book.png" alt="Default Book">
+            <img class="genre-preview" id="bookImage" src="assets/default_book.png" alt="Book Genre Preview">
             <div class="form-field">
             <label for="bookTitle" id="bookTitleLabel">Add a new nibble.</label>
             <textarea type="text" name="bookTitle" id="bookTitle" required="true" placeholder="Your book title" rows="3"></textarea>
@@ -90,19 +90,18 @@
 
           <div class="form-row">
             <div class="form-field" id="startDateField">
-            <label for="startDate">Started</label>
-            <input type="text" onfocus="(this.type='date')" id="startDate" placeholder="dd/mm/yyyy"/>
+            <label for="bookStart">Started</label>
+            <input type="text" onfocus="(this.type='date')" id="bookStart" placeholder="dd/mm/yyyy"/>
             </div>
-
             <div class="form-field" id="finishDateField">
-            <label for="finishDate">Finished</label>
-            <input type="text" onfocus="(this.type='date')" id="finishDate" placeholder="dd/mm/yyyy"/>
+            <label for="bookFinish">Finished</label>
+            <input type="text" onfocus="(this.type='date')" id="bookFinish" placeholder="dd/mm/yyyy"/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-field">
-            <label for="personalNotes">Personal Notes</label>
-            <textarea type="text" name="personalNotes" id="personalNotes" placeholder="Write your thoughts..." rows="4"></textarea>
+            <label for="bookNotes">Personal Notes</label>
+            <textarea type="text" name="bookNotes" id="bookNotes" placeholder="Write your thoughts..." rows="4"></textarea>
             </div>
           </div>
           <div class="form-row">
