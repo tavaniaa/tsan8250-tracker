@@ -20,7 +20,7 @@ form.addEventListener('submit', function(event) {
 
   bookImageElem.setAttribute('src', 'assets/default_book.png');
 
-  console.log(nibbleList);
+  
 })
 
 var nibbleList = [];
@@ -39,41 +39,61 @@ function addNibble(name, author, status, genre, started, finished, rating, note,
     favourite
   }
 
-  nibbleList.push(nibble);
-  displayNibble(nibble)
+  let nibbleLibrary = JSON.parse(localStorage.getItem('nibbleLibrary'));
+        
+        if (nibbleLibrary == null) {
+          // Set a new value for nibbleLibrary in localStorage
+          nibbleLibrary = [nibble.id]
+        } else {
+          // Check to see if nibble exists in localStorage
+          if (nibbleLibrary.find(element => element === nibble.id)) {
+            console.log('Nibble already exists')
+          } else {
+            nibbleLibrary.push(nibble.name)
+          }
+        }
+        localStorage.setItem('nibbleLibrary', JSON.stringify(nibbleLibrary))
+        console.log(JSON.parse(localStorage.getItem('nibbleLibrary')))
+
+
+  // nibbleList.push(nibble);
+  // displayNibble(nibble)
 }
 
 
-function displayNibble(nibble) {
-    let item = document.createElement('div');
-    item.className = "card";
-    item.setAttribute('data-id', nibble.id);
-    let genreImage = document.createElement('img')
-    genreImage.setAttribute('src', 'assets/default_book.png');
-    item.appendChild(genreImage);
-    item.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author} </p>`
-    nibbleListElem.appendChild(item);
-    form.reset();
-  
-    let delButton = document.createElement('button');
-    let delButtonText = document.createTextNode('Delete');
-    delButton.appendChild(delButtonText);
-    item.appendChild(delButton);
-  
-    delButton.addEventListener('click', function(event){
-      item.remove();
-      nibbleList.forEach(function(nibbleArrayElement, nibbleArrayIndex){
-        if (nibbleArrayElement.id == item.getAttribute('data-id')) {
-          nibbleList.splice(nibbleArrayIndex, 1)
-        }
-      })
-      console.log(nibbleList);
-    })
-  }
+// function displayNibble(nibble) {
+//     let item = document.createElement('div');
+//     item.className = "card";
+//     item.setAttribute('data-id', nibble.id);
+//     let genreImage = document.createElement('img')
+//     genreImage.setAttribute('src', 'assets/default_book.png');
+//     item.appendChild(genreImage);
+//     item.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author} </p>`
+//     nibbleListElem.appendChild(item);
+//     form.reset();
+//   }
 
 
   selectGenreElem.addEventListener('input', updateImage);
 
   function updateImage() {
     bookImageElem.setAttribute('src', 'assets/' + form.elements.bookGenre.value + '_book.svg');
+  }
+
+  function updateLibrary() {
+    let list = document.getElementById('#nibbleList');
+    list.innerHTML = "";
+    
+    let nibbleLibrary = JSON.parse(localStorage.getItem('nibbleLibrary'));
+    
+    if (nibbleLibrary !== null) {
+      
+      nibbleLibrary.forEach((nibble) => {
+        let listItem = document.createElement('li');
+        listItem.textContent = nibble.name;
+        list.appendChild(listItem)
+      })
+      
+    }
+    
   }
