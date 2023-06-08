@@ -1,6 +1,5 @@
 const form = document.getElementById('nibbleForm');
 const selectGenreElem = document.getElementById('bookGenre');
-const bookImageElem = document.getElementById('bookImage');
 
 updateLibrary();
 
@@ -70,9 +69,10 @@ function addNibble(name, author, status, genre, started, finished, rating, note,
 }
 
 // Changes image preview to the book genre when user selects a genre
+const bookImageElem = document.getElementById('bookImage');
 selectGenreElem.addEventListener('input', updateImage);
 function updateImage() {
-  bookImageElem.setAttribute('src', 'assets/' + form.elements.bookGenre.value + '_book.svg');
+  bookImageElem.src = 'assets/' + form.elements.bookGenre.value + '_book.svg';
 }
 
 // Updates the library list with items from local storage
@@ -88,6 +88,27 @@ function updateLibrary() {
     nibbleLibrary.forEach((nibble) => {
       let item = document.createElement('li');
       item.setAttribute('class', 'card');
+
+      // Create popup with more information about the nibble
+      item.addEventListener('click', function() {
+        console.log(nibble.name);
+        let nibbleDetails = document.getElementById('detailsOverlay');
+
+        nibbleDetails.setAttribute('style', 'display: flex');
+
+        // Changes image to match book genre
+        let detailsImage = document.getElementById('detailsImage');
+        detailsImage.src = 'assets/' + nibble.genre + '_book.svg';
+
+        // Changes title to match book name
+        let nibbleTitle = document.getElementById('detailsTitle');
+        nibbleTitle.innerHTML = nibble.name;
+
+        // Creates a copy of the reading status and heart elements
+        let additionalDetails = document.getElementById('headerAdditionalDetails');
+        additionalDetails.appendChild(createReadingStatus(nibble));
+        additionalDetails.appendChild(createHeart(nibbleLibrary, nibble));
+      });
       
       let cardImage = new Image();
       cardImage.src = 'assets/' + nibble.genre + '_card.svg';
@@ -123,41 +144,12 @@ function updateLibrary() {
       additionalInfo.setAttribute('class', 'additional-info');
 
       // FAVOURITE BUTTON
-      let favourite = document.createElement('img');
-      favourite.setAttribute('class', 'favourite')
-      favourite.src = 'assets/favourite_' + nibble.favourite + '.svg';
-      favourite.alt = 'Favourite Icon';
-
-      favourite.addEventListener('click', function() {
-        if (nibble.favourite == 'false') {
-          nibble.favourite = 'true';
-        } else {
-          nibble.favourite = 'false';
-        }
-        favourite.src = 'assets/favourite_' + nibble.favourite + '.svg';
-        console.log(nibble.favourite);
-        console.log(favourite.src);
-
-        localStorage.setItem('nibbleLibrary', JSON.stringify(nibbleLibrary))
-
-        });
+      favourite = createHeart(nibbleLibrary, nibble);
 
       additionalInfo.appendChild(favourite);
 
       // READING STATUS
-      let readingStatus = document.createElement('p');
-      readingStatus.setAttribute('class', 'reading-status');
-      readingStatus.innerHTML = nibble.status;
-      
-      if(nibble.status == 'Reading') {
-        readingStatus.setAttribute('style', 'color: #66A9C6; background-color: #D8EAF8');
-      } else if (nibble.status == 'Completed') {
-        readingStatus.setAttribute('style', 'color: #7DBC84; background-color: #DCF2DC');
-      } else if (nibble.status == 'On Hold') {
-        readingStatus.setAttribute('style', 'color: #E3C148; background-color: #FFF0CB');
-      } else {
-        readingStatus.setAttribute('style', 'color: #DB5F5F; background-color: #FFD4D4');
-      }
+      readingStatus = createReadingStatus(nibble);
 
       additionalInfo.appendChild(readingStatus);
 
@@ -169,4 +161,64 @@ function updateLibrary() {
   } else {
     emptyLibrary.style.display = "flex";
   }
+}
+
+// Creates heart element that displays whether the book is favourited or not. Users can click  the icon to favourite and unfavourite.
+function createHeart(nibbleLibrary, nibble) {
+  let heart = document.createElement('img');
+      heart.setAttribute('class', 'favourite')
+      heart.src = 'assets/favourite_' + nibble.favourite + '.svg';
+      heart.alt = 'Favourite Icon';
+
+      heart.addEventListener('click', function() {
+        if (nibble.favourite == 'false') {
+          nibble.favourite = 'true';
+        } else {
+          nibble.favourite = 'false';
+        }
+        heart.src = 'assets/favourite_' + nibble.favourite + '.svg';
+
+        localStorage.setItem('nibbleLibrary', JSON.stringify(nibbleLibrary))
+
+        });
+  return heart;
+}
+
+function createReadingStatus(nibble) {
+  let readingStatus = document.createElement('p');
+  readingStatus.setAttribute('class', 'reading-status');
+  readingStatus.innerHTML = nibble.status;
+  
+  if(nibble.status == 'Reading') {
+    readingStatus.setAttribute('style', 'color: #66A9C6; background-color: #D8EAF8');
+  } else if (nibble.status == 'Completed') {
+    readingStatus.setAttribute('style', 'color: #7DBC84; background-color: #DCF2DC');
+  } else if (nibble.status == 'On Hold') {
+    readingStatus.setAttribute('style', 'color: #E3C148; background-color: #FFF0CB');
+  } else {
+    readingStatus.setAttribute('style', 'color: #DB5F5F; background-color: #FFD4D4');
+  }
+
+  return readingStatus;
+}
+
+// Close icon closes popups
+function closePopup(popup) {
+  let popupToClose = document.getElementById(popup);
+  popupToClose.setAttribute('style','display: none');
+  removeAdditionalDetails();
+  updateLibrary();
+}
+
+function removeAdditionalDetails() {
+  headerAdditionalDetails.innerHTML = "";
+}
+
+
+// Delete Nibble functionality
+let deleteNibbleButton = document.getElementById('deleteNibble');
+
+
+function removeNibble() {
+
 }

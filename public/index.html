@@ -143,6 +143,50 @@
         </form>
     </div>
   </div>
+
+  <div class="popup-overlay" id="detailsOverlay">
+    <div class="popup" id="detailsPopup">
+      <div class="popup-topbar">
+        <h2 class="popup-message"></h2>
+        <img src="assets/close.svg" class="close-button" alt="Close" onclick="closePopup('detailsOverlay')">
+      </div>
+      <div class="details-header">
+        <img id="detailsImage" src="assets/default_book.png" alt="Genre Image">
+        <div>
+          <h1 id="detailsTitle">Book Title</h1>
+          <div id="headerAdditionalDetails">
+          </div>
+        </div>
+      </div>
+      <div class="details-body">
+        <h2>Details</h2>
+        <div class="more-details">
+          <div class="left-details">
+            <strong>Author</strong>
+            <p>Book Author</p>
+            <strong>Genre</strong>
+            <p>Book Genre</p>
+          </div>
+          <div class="right-details">
+            <strong>Started</strong>
+            <p>--/--/----</p>
+            <strong>Finished</strong>
+            <p>--/--/----</p>
+          </div>
+        </div>
+        <strong>What you thought about this...</strong>
+        <p>Personal Notes</p>
+        <div class="details-footer">
+          <div class="details-rating">
+            <strong>Your rating</strong>
+            <div id="detailsStarRating"></div>
+          </div>
+          <button type="button" id="deleteNibble">Delete nibble</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
