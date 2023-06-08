@@ -387,6 +387,8 @@ body {
       height: 80%;
       padding: 2em;
       border-radius: 16px;
+      display: flex;
+      flex-direction: column;
     }
 
     .details-header {
@@ -407,4 +409,36 @@ body {
       border-radius: 8px;
       object-fit: cover;
       max-height: 12em;
+    }
+
+    .details-body {
+      margin: 2em 0.5em;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    .more-details {
+      display: flex;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    .left-details, .right-details {
+      width: 50%;
+
+    }
+
+    .personal-notes {
+      height: 100%;
+    }
+
+    .details-footer {
+      margin: 0 .5em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }

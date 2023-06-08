@@ -106,13 +106,18 @@ function updateLibrary() {
 
         nibbleDetails.setAttribute('style', 'display: flex');
 
-        // Changes image to match book genre
-        let detailsImage = document.getElementById('detailsImage');
-        detailsImage.src = 'assets/' + nibble.genre + '_book.svg';
+        // Updates details to match nibble
+        document.getElementById('detailsImage').src = 'assets/' + nibble.genre + '_book.svg';        
+        document.getElementById('detailsTitle').innerHTML = nibble.name;
+        document.getElementById('detailsAuthor').innerHTML = nibble.author;
+        document.getElementById('detailsGenre').innerHTML = nibble.genre;
+        document.getElementById('detailsStart').innerHTML = nibble.started;
+        document.getElementById('detailsFinish').innerHTML = nibble.finished;
+        document.getElementById('detailsNotes').innerHTML = nibble.note;
+        document.getElementById('detailsRating').innerHTML = '<p><strong>Your rating: </strong>' + nibble.rating + ' / 5</p>';
 
-        // Changes title to match book name
-        let nibbleTitle = document.getElementById('detailsTitle');
-        nibbleTitle.innerHTML = nibble.name;
+
+
 
         // Creates a copy of the reading status and heart elements
         let additionalDetails = document.getElementById('headerAdditionalDetails');
