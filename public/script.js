@@ -85,10 +85,10 @@ function updateLibrary() {
   
   let nibbleLibrary = JSON.parse(localStorage.getItem('nibbleLibrary'));
 
-  if (nibbleLibrary.length = 0) {
-    emptyLibrary.style.display = "flex";
-  } else {
+  if (nibbleLibrary.length !== 0) {
     emptyLibrary.style.display = "none";
+  } else {
+    emptyLibrary.style.display = "flex";
   }
 
   console.log(nibbleLibrary);
