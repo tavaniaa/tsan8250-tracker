@@ -334,3 +334,10 @@ body {
     .favourite:hover {
       cursor: pointer;
     }
+
+    .reading-status {
+      padding: .5em 1em;
+      font-size: x-small;
+      font-weight: 500;
+      border-radius: 24px;
+    }

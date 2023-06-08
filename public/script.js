@@ -118,13 +118,15 @@ function updateLibrary() {
         ratingWrap.appendChild(star);
       }
 
-      // Favourite and Status
+      // ADDITIONAL INFO
       let additionalInfo = document.createElement('div');
       additionalInfo.setAttribute('class', 'additional-info');
 
+      // FAVOURITE BUTTON
       let favourite = document.createElement('img');
       favourite.setAttribute('class', 'favourite')
       favourite.src = 'assets/favourite_' + nibble.favourite + '.svg';
+      favourite.alt = 'Favourite Icon';
 
       favourite.addEventListener('click', function() {
         if (nibble.favourite == 'false') {
@@ -135,13 +137,29 @@ function updateLibrary() {
         favourite.src = 'assets/favourite_' + nibble.favourite + '.svg';
         console.log(nibble.favourite);
         console.log(favourite.src);
-        
+
         localStorage.setItem('nibbleLibrary', JSON.stringify(nibbleLibrary))
 
         });
 
-
       additionalInfo.appendChild(favourite);
+
+      // READING STATUS
+      let readingStatus = document.createElement('p');
+      readingStatus.setAttribute('class', 'reading-status');
+      readingStatus.innerHTML = nibble.status;
+      
+      if(nibble.status == 'Reading') {
+        readingStatus.setAttribute('style', 'color: #66A9C6; background-color: #D8EAF8');
+      } else if (nibble.status == 'Completed') {
+        readingStatus.setAttribute('style', 'color: #7DBC84; background-color: #DCF2DC');
+      } else if (nibble.status == 'On Hold') {
+        readingStatus.setAttribute('style', 'color: #E3C148; background-color: #FFF0CB');
+      } else {
+        readingStatus.setAttribute('style', 'color: #DB5F5F; background-color: #FFD4D4');
+      }
+
+      additionalInfo.appendChild(readingStatus);
 
       item.appendChild(additionalInfo);
 
