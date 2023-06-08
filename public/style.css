@@ -83,6 +83,10 @@ body {
     font-weight: 600;
   }
 
+  ul {
+    list-style: none;
+  }
+
   .library-empty {
     height: 100%;
     display: flex;

@@ -1,7 +1,8 @@
 const form = document.getElementById('nibbleForm');
-const nibbleListElem = document.querySelector('#nibbleList');
 const selectGenreElem = document.getElementById('bookGenre');
 const bookImageElem = document.getElementById('bookImage');
+
+updateLibrary();
 
 form.addEventListener('submit', function(event) {
   event.preventDefault();
@@ -19,8 +20,6 @@ form.addEventListener('submit', function(event) {
   )
 
   bookImageElem.setAttribute('src', 'assets/default_book.png');
-
-  
 })
 
 var nibbleList = [];
@@ -41,37 +40,34 @@ function addNibble(name, author, status, genre, started, finished, rating, note,
 
   let nibbleLibrary = JSON.parse(localStorage.getItem('nibbleLibrary'));
         
-        if (nibbleLibrary == null) {
-          // Set a new value for nibbleLibrary in localStorage
-          nibbleLibrary = [nibble.id]
-        } else {
-          // Check to see if nibble exists in localStorage
-          if (nibbleLibrary.find(element => element === nibble.id)) {
-            console.log('Nibble already exists')
-          } else {
-            nibbleLibrary.push(nibble.name)
-          }
-        }
-        localStorage.setItem('nibbleLibrary', JSON.stringify(nibbleLibrary))
-        console.log(JSON.parse(localStorage.getItem('nibbleLibrary')))
+  if (nibbleLibrary == null) {
+    // Set a new value for nibbleLibrary in localStorage
+    nibbleLibrary = [nibble]
+  } else {
+    // Check to see if nibble exists in localStorage
+    if (nibbleLibrary.find(element => element.id === nibble.id)) {
+      console.log('Nibble already exists')
+    } else {
+      nibbleLibrary.push(nibble)
+    }
+  }
+  localStorage.setItem('nibbleLibrary', JSON.stringify(nibbleLibrary))
+  console.log(JSON.parse(localStorage.getItem('nibbleLibrary')))
 
-
-  // nibbleList.push(nibble);
-  // displayNibble(nibble)
+  updateLibrary();
+  form.reset();
 }
 
-
-// function displayNibble(nibble) {
-//     let item = document.createElement('div');
-//     item.className = "card";
-//     item.setAttribute('data-id', nibble.id);
-//     let genreImage = document.createElement('img')
-//     genreImage.setAttribute('src', 'assets/default_book.png');
-//     item.appendChild(genreImage);
-//     item.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author} </p>`
-//     nibbleListElem.appendChild(item);
-//     form.reset();
-//   }
+function displayNibble(nibble) {
+    let item = document.createElement('div');
+    item.className = "card";
+    item.setAttribute('data-id', nibble.id);
+    let genreImage = document.createElement('img')
+    genreImage.setAttribute('src', 'assets/default_book.png');
+    item.appendChild(genreImage);
+    item.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author} </p>`
+    nibbleListElem.appendChild(item);
+  }
 
 
   selectGenreElem.addEventListener('input', updateImage);
@@ -81,17 +77,22 @@ function addNibble(name, author, status, genre, started, finished, rating, note,
   }
 
   function updateLibrary() {
-    let list = document.getElementById('#nibbleList');
-    list.innerHTML = "";
+    let nibbleList = document.querySelector('ul');
+    nibbleList.innerHTML = "";
     
     let nibbleLibrary = JSON.parse(localStorage.getItem('nibbleLibrary'));
     
     if (nibbleLibrary !== null) {
-      
       nibbleLibrary.forEach((nibble) => {
-        let listItem = document.createElement('li');
-        listItem.textContent = nibble.name;
-        list.appendChild(listItem)
+        let item = document.createElement('li');
+        item.className = "card";
+        
+        let genreImage = document.createElement('img')
+        genreImage.setAttribute('src', 'assets/default_book.png');
+        item.appendChild(genreImage);
+
+        item.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author}</p>`
+        nibbleList.appendChild(item);
       })
       
     }
