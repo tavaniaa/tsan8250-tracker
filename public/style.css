@@ -211,12 +211,11 @@ body {
     }
 
     .ratings-wrapper {
-      display: inline-block;
       padding-left: .5em;
     }
 
     .ratings {
-      font-size: x-large;
+      margin: 0;
     }
 
 
@@ -237,9 +236,27 @@ body {
     }
 
     .card {
-      padding: 0.5em;
       background-color: white;
       border-radius: 8px;
       box-shadow: 0px 4px 8px rgb(69,51,22,0.05);
       margin-bottom: 1em;
+      display: flex;
+    }
+
+    .card > img {
+      border-radius: 8px 0px 0px 8px;
+      min-width: 200px;
+      max-height: 120px;
+      object-fit: cover;
+    }
+
+    .nibble-info {
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .rating-wrap {
+      color:#DEDEDE;
     }

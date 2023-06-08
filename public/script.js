@@ -14,7 +14,7 @@ form.addEventListener('submit', function(event) {
     form.elements.bookGenre.value,
     form.elements.bookStart.value,
     form.elements.bookFinish.value,
-    5,
+    3,
     form.elements.bookNotes.value,
     false
   )
@@ -58,43 +58,55 @@ function addNibble(name, author, status, genre, started, finished, rating, note,
   form.reset();
 }
 
-function displayNibble(nibble) {
-    let item = document.createElement('div');
-    item.className = "card";
-    item.setAttribute('data-id', nibble.id);
-    let genreImage = document.createElement('img')
-    genreImage.setAttribute('src', 'assets/default_book.png');
-    item.appendChild(genreImage);
-    item.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author} </p>`
-    nibbleListElem.appendChild(item);
-  }
+// Changes image preview to the book genre when user selects a genre
+selectGenreElem.addEventListener('input', updateImage);
+function updateImage() {
+  bookImageElem.setAttribute('src', 'assets/' + form.elements.bookGenre.value + '_book.svg');
+}
 
-
-  selectGenreElem.addEventListener('input', updateImage);
-
-  function updateImage() {
-    bookImageElem.setAttribute('src', 'assets/' + form.elements.bookGenre.value + '_book.svg');
-  }
-
-  function updateLibrary() {
-    let nibbleList = document.querySelector('ul');
-    nibbleList.innerHTML = "";
-    
-    let nibbleLibrary = JSON.parse(localStorage.getItem('nibbleLibrary'));
-    
-    if (nibbleLibrary !== null) {
-      nibbleLibrary.forEach((nibble) => {
-        let item = document.createElement('li');
-        item.className = "card";
-        
-        let genreImage = document.createElement('img')
-        genreImage.setAttribute('src', 'assets/default_book.png');
-        item.appendChild(genreImage);
-
-        item.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author}</p>`
-        nibbleList.appendChild(item);
-      })
+// Updates the library list with items from local storage
+function updateLibrary() {
+  let nibbleList = document.querySelector('ul');
+  nibbleList.innerHTML = "";
+  
+  let nibbleLibrary = JSON.parse(localStorage.getItem('nibbleLibrary'));
+  
+  // Display each nibble in the library as a card
+  if (nibbleLibrary !== null) {
+    nibbleLibrary.forEach((nibble) => {
+      let item = document.createElement('li');
+      item.setAttribute('class', 'card');
       
-    }
-    
+      let cardImage = new Image();
+      cardImage.src = 'assets/' + nibble.genre + '_card.svg';
+      cardImage.alt =  nibble.genre + ' Image'
+      item.appendChild(cardImage);
+
+      let nibbleInfo = document.createElement('div');
+      nibbleInfo.setAttribute('class', 'nibble-info')
+      nibbleInfo.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author}</p>`
+      item.appendChild(nibbleInfo);
+
+      let ratingWrap = document.createElement('div');
+      ratingWrap.setAttribute('class', 'rating-wrap');
+      nibbleInfo.appendChild(ratingWrap);
+
+      for (i = 0; i < 5; i++) {
+        let star = document.createElement('span');
+        star.innerHTML = 'star';
+        star.setAttribute('class', 'material-symbols-rounded');
+        star.setAttribute('style', 'font-size: 16px');
+
+        if (i < nibble.rating) {
+          star.setAttribute('style', 'color: #3E8C97');
+        } else {
+          star.setAttribute('style', 'color: #D9D9D9');
+        }
+        ratingWrap.appendChild(star);
+      }
+
+      nibbleList.appendChild(item);
+    })
   }
+}
+
