@@ -143,6 +143,7 @@ function updateLibrary() {
       });
       
       let cardImage = new Image();
+      cardImage.setAttribute('class', 'card-image');
       cardImage.src = 'assets/' + nibble.genre + '_card.svg';
       cardImage.alt =  nibble.genre + ' Image'
       item.appendChild(cardImage);
