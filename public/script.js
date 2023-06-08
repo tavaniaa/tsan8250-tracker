@@ -1,5 +1,6 @@
 const form = document.getElementById('nibbleForm');
 const selectGenreElem = document.getElementById('bookGenre');
+const emptyLibrary = document.getElementById('emptyLibrary');
 
 updateLibrary();
 
@@ -22,6 +23,7 @@ form.addEventListener('submit', function(event) {
   bookImageElem.setAttribute('src', 'assets/default_book.png');
 })
 
+// Checks which radio button is checked and returns the rating number value
 function runTest(){
   var starRadioElem = document.querySelector('input[name="bookRating"]:checked');
   console.log(starRadioElem.value);
@@ -77,11 +79,19 @@ function updateImage() {
 
 // Updates the library list with items from local storage
 function updateLibrary() {
-  emptyLibrary.style.display = "none";
+
   let nibbleList = document.querySelector('ul');
   nibbleList.innerHTML = "";
   
   let nibbleLibrary = JSON.parse(localStorage.getItem('nibbleLibrary'));
+
+  if (nibbleLibrary.length = 0) {
+    emptyLibrary.style.display = "flex";
+  } else {
+    emptyLibrary.style.display = "none";
+  }
+
+  console.log(nibbleLibrary);
   
   // Display each nibble in the library as a card
   if (nibbleLibrary !== null) {
@@ -108,6 +118,23 @@ function updateLibrary() {
         let additionalDetails = document.getElementById('headerAdditionalDetails');
         additionalDetails.appendChild(createReadingStatus(nibble));
         additionalDetails.appendChild(createHeart(nibbleLibrary, nibble));
+
+        // Clicking delete button removes the nibble from nibbleLibrary array
+        let deleteNibbleButton = document.getElementById('deleteNibble');
+        deleteNibbleButton.addEventListener('click', function() {
+          console.log(nibble.id);
+          nibbleLibrary.forEach(function(arrayID, arrayIndex) {
+            if (arrayID.id === nibble.id) {
+              nibbleLibrary.splice(arrayIndex, 1);
+            }
+          })
+        
+          localStorage.setItem('nibbleLibrary', JSON.stringify(nibbleLibrary))
+        
+          updateLibrary();
+          
+          closePopup('detailsOverlay');
+        });
       });
       
       let cardImage = new Image();
@@ -157,9 +184,6 @@ function updateLibrary() {
 
       nibbleList.appendChild(item);
     })
-
-  } else {
-    emptyLibrary.style.display = "flex";
   }
 }
 
@@ -212,13 +236,4 @@ function closePopup(popup) {
 
 function removeAdditionalDetails() {
   headerAdditionalDetails.innerHTML = "";
-}
-
-
-// Delete Nibble functionality
-let deleteNibbleButton = document.getElementById('deleteNibble');
-
-
-function removeNibble() {
-
 }
