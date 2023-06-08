@@ -1,12 +1,14 @@
 const form = document.getElementById('nibbleForm');
 const selectGenreElem = document.getElementById('bookGenre');
 const bookImageElem = document.getElementById('bookImage');
+const emptyLibrary = document.getElementsByClassName('library-empty');
 
 updateLibrary();
 
 form.addEventListener('submit', function(event) {
   event.preventDefault();
-  // handle the event here
+  let bookRating = runTest();
+
   addNibble(
     form.elements.bookTitle.value,
     form.elements.bookAuthor.value,
@@ -14,7 +16,7 @@ form.addEventListener('submit', function(event) {
     form.elements.bookGenre.value,
     form.elements.bookStart.value,
     form.elements.bookFinish.value,
-    3,
+    bookRating,
     form.elements.bookNotes.value,
     false
   )
@@ -22,7 +24,11 @@ form.addEventListener('submit', function(event) {
   bookImageElem.setAttribute('src', 'assets/default_book.png');
 })
 
-var nibbleList = [];
+function runTest(){
+  var starRadioElem = document.querySelector('input[name="bookRating"]:checked');
+  console.log(starRadioElem.value);
+  return starRadioElem.value;
+}
 
 function addNibble(name, author, status, genre, started, finished, rating, note, favourite) {
   let nibble = {
@@ -55,7 +61,13 @@ function addNibble(name, author, status, genre, started, finished, rating, note,
   console.log(JSON.parse(localStorage.getItem('nibbleLibrary')))
 
   updateLibrary();
+
+  // Return form to original state
   form.reset();
+  let startDate = document.getElementById('bookStart');
+  startDate.setAttribute('type', 'text');
+  let finishDate = document.getElementById('bookFinish');
+  finishDate.setAttribute('type', 'text');
 }
 
 // Changes image preview to the book genre when user selects a genre
@@ -107,6 +119,5 @@ function updateLibrary() {
 
       nibbleList.appendChild(item);
     })
-  }
-}
 
+}

@@ -42,11 +42,11 @@
 
       <!-- EMPTY LIBRARY -->
       
-      <!-- <div class="library-empty">
+      <div class="library-empty">
         <img class="empty-img" src="assets/empty_library.svg" alt="Empty Library"/>
         <h3>You don't have any nibbles yet...</h3>
         <p>Start building your library by adding a new nibble!</p>
-      </div> -->
+      </div>
 
       <div class="nibbles">
         <ul id="nibbleList"></ul>
@@ -117,13 +117,22 @@
           <div class="form-row">
               <div class="ratings-wrapper">
                 <label id="ratingLabel">Rating</label>
-                <div data-productid="39" class="ratings">
-                  <span data-rating="5" class="material-symbols-rounded">star</span>
-                  <span data-rating="4" class="material-symbols-rounded">star</span>
-                  <span data-rating="3" class="material-symbols-rounded">star</span>
-                  <span data-rating="2" class="material-symbols-rounded">star</span>
-                  <span data-rating="1" class="material-symbols-rounded">star</span>
-                </div>
+                <fieldset>
+                  <span class="star-group">
+                    <input type="radio" id="rating-5" name="bookRating" value="5" />
+                    <label for="rating-5">5</label>
+                    <input type="radio" id="rating-4" name="bookRating" value="4" />
+                    <label for="rating-4">4</label>
+                    <input type="radio" id="rating-3" name="bookRating" value="3" />
+                    <label for="rating-3">3</label>
+                    <input type="radio" id="rating-2" name="bookRating" value="2" />
+                    <label for="rating-2">2</label>
+                    <input type="radio" id="rating-1" name="bookRating" value="1" />
+                    <label for="rating-1">1</label>
+                    <input type="radio" id="rating-0" name="bookRating" value="0" class="star-cb-clear" />
+                    <label for="rating-0">0</label>
+                  </span>
+                </fieldset>
               </div>
               <div class="form-field" id="submitButton">
                 <div class="form-submit-button">
