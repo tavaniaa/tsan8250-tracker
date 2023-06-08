@@ -1,7 +1,6 @@
 const form = document.getElementById('nibbleForm');
 const selectGenreElem = document.getElementById('bookGenre');
 const bookImageElem = document.getElementById('bookImage');
-const emptyLibrary = document.getElementsByClassName('library-empty');
 
 updateLibrary();
 
@@ -18,7 +17,7 @@ form.addEventListener('submit', function(event) {
     form.elements.bookFinish.value,
     bookRating,
     form.elements.bookNotes.value,
-    false
+    'false'
   )
 
   bookImageElem.setAttribute('src', 'assets/default_book.png');
@@ -78,6 +77,7 @@ function updateImage() {
 
 // Updates the library list with items from local storage
 function updateLibrary() {
+  emptyLibrary.style.display = "none";
   let nibbleList = document.querySelector('ul');
   nibbleList.innerHTML = "";
   
@@ -99,6 +99,7 @@ function updateLibrary() {
       nibbleInfo.innerHTML = `<p> <strong>${nibble.name}</strong> <br/> ${nibble.author}</p>`
       item.appendChild(nibbleInfo);
 
+      // Star rating
       let ratingWrap = document.createElement('div');
       ratingWrap.setAttribute('class', 'rating-wrap');
       nibbleInfo.appendChild(ratingWrap);
@@ -117,7 +118,37 @@ function updateLibrary() {
         ratingWrap.appendChild(star);
       }
 
+      // Favourite and Status
+      let additionalInfo = document.createElement('div');
+      additionalInfo.setAttribute('class', 'additional-info');
+
+      let favourite = document.createElement('img');
+      favourite.setAttribute('class', 'favourite')
+      favourite.src = 'assets/favourite_' + nibble.favourite + '.svg';
+
+      favourite.addEventListener('click', function() {
+        if (nibble.favourite == 'false') {
+          nibble.favourite = 'true';
+        } else {
+          nibble.favourite = 'false';
+        }
+        favourite.src = 'assets/favourite_' + nibble.favourite + '.svg';
+        console.log(nibble.favourite);
+        console.log(favourite.src);
+        
+        localStorage.setItem('nibbleLibrary', JSON.stringify(nibbleLibrary))
+
+        });
+
+
+      additionalInfo.appendChild(favourite);
+
+      item.appendChild(additionalInfo);
+
       nibbleList.appendChild(item);
     })
 
+  } else {
+    emptyLibrary.style.display = "flex";
+  }
 }
